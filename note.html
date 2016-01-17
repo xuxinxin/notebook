@@ -1,0 +1,133 @@
+<!doctype html>
+<!--
+  note.html
+  spa browser document for notebook application
+-->
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>个人笔记本</title>
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="css/normalize.css"  type="text/css"/>
+    <link rel="stylesheet" href="css/note.css"       type="text/css"/>
+    <link rel="stylesheet" href="css/note.shell.css" type="text/css"/>
+
+    <!-- third-party javascript -->
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/handlebars.js"></script>
+    <script type="text/javascript" src="js/markdown.min.js"></script>
+
+    <!-- javascript -->
+    <script type="text/javascript" src="js/note.js"></script>
+    <script type="text/javascript" src="js/note.shell.js"></script>
+</head>
+<body>
+    <div id="note">
+        <div class="note-catalog,note-shell-sidebar">
+            <div class="note-catalog-head">笔记本</div>
+            <div class="note-catalog-menu">
+                <i class="fa fa-plus g_pointer add-catalog"></i>
+                <i class="fa fa-trash-o deleteNotebook"></i>
+            </div>
+            <div class="note-catalog-items">
+                <input type="text" class="new-catalogue-input"/>
+                <ul id="notebooks"></ul>
+            </div>
+        </div>
+        <div class="note-shell-main">
+            <div class="note-preview note-shell-middle">
+                <div class="note-preview-head">
+                    <span class="title">笔记</span>
+                    <span class="g_pointer create-notebook-button"><i class="fa fa-pencil-square-o"></i>新建笔记</span>
+                </div>
+                <div class="note-preview-content">
+                    <ul id="note-previw-items"></ul>
+                </div>
+            </div>
+
+            <div id="note-content note-shell-content" class="note-content">
+            </div>
+
+            <div class="note-editor note-shell-content"  style="display: none">
+                <input type="text" class="essay-title" name="note_title" placeholder="输入笔记标题">
+                <div class="note-editor-container" >
+                    <div class="note-editor-menu">
+                        <i class="fa fa-bars fa-1x" style="cursor: default;" title="菜单栏"></i>
+                        <i class="fa fa-floppy-o add-essay" title="保存"></i>
+                        <i class="fa fa-caret-square-o-up preview-essay" title="预览"></i>
+                    </div>
+                    <div class="note-editor-area" contenteditable="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="note-shell-modal">
+            <div class="modal-frame">
+                <div class="modal">
+                    <div class="modal-inset">
+                        <div class="button modal-close modal-close-action"><i class="fa fa-close"></i></div>
+
+                        <div class="modal-body">
+                            <h3 class="modal-title">Such Modal, Much Animate!</h3>
+                            <p class="modal-content">Nothing groundbreaking, but I hope you enjoyed <br /> the physics for the open/close animation =).</p>
+                            <p class="ps"></p>
+                            <button class="modal-btn modal-close-action">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-overlay"></div>
+        </div>
+    </div>
+</body>
+
+<!--template-->
+<script id="catalog-template" type="text/x-handlebars-template">
+    <li class="catalog" data-id="{{id}}"><a href="/notebook/#{{id}}">{{title}}({{numberOfNote}})</a></li>
+</script>
+<script id="catalog-collection-template" type="text/x-handlebars-template">
+    {{#each catalogus}}
+    <li class="catalog" data-id="{{id}}"><a href="/notebook/#{{id}}">{{title}}({{numberOfNote}})</a></li>
+    {{/each}}
+</script>
+
+<script id="empty-preview-template" type="text/x-handlebars-template">
+    <li class="preview selected" data-id="">
+        <a href="#">
+            <div class="cite">
+                <h5>{{title}}</h5>
+                <p>{{body}}</p>
+            </div>
+        </a>
+    </li>
+</script>
+
+<script id="preview-collection-template" type="text/x-handlebars-template">
+    {{#each previews}}
+    <li class="preview" data-id="{{id}}">
+        <a href="#">
+            <div class="cite">
+                <h5>{{title}}</h5>
+                <p>{{short}}</p>
+            </div>
+        </a>
+    </li>
+    {{/each}}
+</script>
+
+<script id="notebook-display-template" type="text/x-handlebars-template">
+    <div class="menubar notebook-close-button g_pointer"> <i class="fa fa-times delete-notebook"></i></div>
+    <div class="content-header">
+        <h2>{{title}}</h2>
+        <span></span>
+    </div>
+    <div class="content-page">
+        {{paragraphSplit content}}
+    </div>
+    </div>
+</script>
+
+</html>

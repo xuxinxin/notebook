@@ -1,0 +1,27 @@
+.note-content .content-header {
+  height: 170px;
+  line-height: 170px;
+  background-color: rgba(129, 196, 131, 0.9);
+  color: #fcfcfc;
+  text-align: center; }
+  .note-content .content-header h2 {
+    font-size: 30px;
+    color: #fff; }
+.note-content .notebook-close-button {
+  position: fixed;
+  top: 10px;
+  right: -10px;
+  width: 48px;
+  color: #fff;
+  font-size: 18px;
+  z-index: 100; }
+  .note-content .notebook-close-button:hover, .note-content .notebook-close-button.out {
+    color: #ddd; }
+  .note-content .notebook-close-button.out:hover {
+    color: #7b7b7b; }
+.note-content .content-page {
+  margin-bottom: 20px; }
+  .note-content .content-page p {
+    margin-bottom: 20px; }
+
+/*# sourceMappingURL=note.content.css.map */

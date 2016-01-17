@@ -1,0 +1,45 @@
+.note-catalog-head {
+  height: 170px;
+  line-height: 170px;
+  text-align: center;
+  font-size: 2.2rem; }
+
+.note-catalog-menu {
+  width: 100%;
+  text-align: right;
+  height: 2em;
+  margin-right: 20px;
+  font-size: 1.5em; }
+  .note-catalog-menu i {
+    float: right;
+    margin-right: 20px;
+    line-height: 2em; }
+  .note-catalog-menu li {
+    height: 2em;
+    line-height: 2em;
+    padding-left: 30px;
+    transition: all 0.2s ease-in-out; }
+    .note-catalog-menu li:hover, .note-catalog-menu li:focus {
+      background-color: #303030;
+      color: #fcfcfc; }
+
+.note-catalog-items .new-catalogue-input {
+  border: none;
+  border-bottom: 1px dashed #b2b2b2;
+  background: #181818;
+  outline: none;
+  color: white;
+  width: 80%;
+  position: relative;
+  left: 10%;
+  display: none; }
+.note-catalog-items .note-catalog-item {
+  background-color: #303030;
+  color: #fcfcfc; }
+  .note-catalog-items .note-catalog-item a {
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    border: none; }
+
+/*# sourceMappingURL=note.catalog.css.map */

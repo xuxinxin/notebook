@@ -1,0 +1,38 @@
+$background-color: #181818
+$grey: #616161
+$sidebar-width: 24rem
+
+.note-shell-sidebar
+  position: absolute
+  top: 0
+  height: 100%
+  width: 190px
+  background-color: $background-color
+  color: $grey
+
+
+.note-shell-main
+  position: absolute
+  right: 0
+  left: 190px
+  width: calc(100% - 195px)
+  height: 100%
+  border-left: 5px solid #eee
+
+.note-shell-sidebar,.note-shell-middle,.note-shell-content
+  position: absolute
+  top: 0
+  height: 100%
+  width: calc(100vw - 589px)
+  left: 0
+
+.note-shell-sidebar
+  width: $sidebar-width
+  border-right: 10px solid #eee
+
+.note-shell-content
+  left: calc( 24rem + 10px )
+  overflow-y: auto
+
+
+
