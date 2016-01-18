@@ -14,7 +14,7 @@
   height: 100%;
   border-left: 5px solid #eee; }
 
-.note-shell-sidebar, .note-shell-middle, .note-shell-content {
+.note-shell-middle, .note-shell-content {
   position: absolute;
   top: 0;
   height: 100%;
@@ -28,5 +28,8 @@
 .note-shell-content {
   left: calc( 24rem + 10px );
   overflow-y: auto; }
+
+.note-shell-modal {
+  display: none; }
 
 /*# sourceMappingURL=note.shell.css.map */

@@ -1,3 +1,4 @@
+@import url(note.modal.css);
 html {
   font: 16px "Helvetica", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
   height: 100%;
@@ -26,5 +27,214 @@ a {
   bottom: 0;
   max-width: 1600px;
   overflow: hidden; }
+
+.note-shell-sidebar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 190px;
+  background-color: #181818;
+  color: #616161; }
+
+.note-shell-main {
+  position: absolute;
+  right: 0;
+  left: 190px;
+  width: calc(100% - 195px);
+  height: 100%;
+  border-left: 5px solid #eee; }
+
+.note-shell-middle, .note-shell-content {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: calc(100vw - 589px);
+  left: 0; }
+
+.note-shell-middle {
+  width: 24rem;
+  border-right: 10px solid #eee; }
+
+.note-shell-content {
+  left: calc( 24rem + 10px );
+  overflow-y: auto; }
+
+.note-shell-modal {
+  display: none; }
+
+.note-catalog-head {
+  height: 170px;
+  line-height: 170px;
+  text-align: center;
+  font-size: 2.2rem; }
+
+.note-catalog-menu {
+  width: 100%;
+  text-align: right;
+  height: 2em;
+  margin-right: 20px;
+  font-size: 1.5em; }
+  .note-catalog-menu i {
+    float: right;
+    margin-right: 20px;
+    line-height: 2em; }
+  .note-catalog-menu li {
+    height: 2em;
+    line-height: 2em;
+    padding-left: 30px;
+    transition: all 0.2s ease-in-out; }
+    .note-catalog-menu li:hover, .note-catalog-menu li:focus {
+      background-color: #303030;
+      color: #fcfcfc; }
+
+.note-catalog-items .new-catalogue-input {
+  border: none;
+  border-bottom: 1px dashed #b2b2b2;
+  background: #181818;
+  outline: none;
+  color: white;
+  width: 80%;
+  position: relative;
+  left: 10%;
+  display: none; }
+.note-catalog-items .note-catalog-item {
+  background-color: #303030;
+  color: #fcfcfc; }
+  .note-catalog-items .note-catalog-item a {
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    border: none; }
+
+.note-preview-head {
+  height: 170px;
+  line-height: 170px;
+  font-size: 2.2rem;
+  position: relative;
+  color: #c3c3c3;
+  margin: 0 10px; }
+  .note-preview-head .create-notebook-button {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    line-height: 2.4rem;
+    margin-top: -1.1rem;
+    height: 2.2rem;
+    font-size: 1rem;
+    background-color: rgba(129, 196, 131, 0.925);
+    color: #fcfcfc;
+    padding: 0 20px;
+    border-radius: 5px; }
+    .note-preview-head .create-notebook-button i {
+      margin-left: 10px; }
+
+.note-preview-content {
+  scrollbar-arrow-color: transparent;
+  overflow-y: scroll;
+  height: calc(100% - 190px);
+  margin: 0 8px 0 6px; }
+  .note-preview-content::-webkit-scrollbar-thumb:vertical {
+    height: 5px;
+    background-color: #999999;
+    -webkit-border-radius: 6px; }
+  .note-preview-content::-webkit-scrollbar {
+    width: 8px;
+    height: 9px; }
+  .note-preview-content::-webkit-scrollbar-track-piece {
+    background-color: transparent; }
+  .note-preview-content::-webkit-scrollbar-thumb {
+    background-color: #3994EF;
+    border-radius: 3px;
+    width: 6px; }
+  .note-preview-content::-webkit-scrollbar-thumb:hover, .note-preview-content::-webkit-scrollbar-thumb {
+    background-color: #666; }
+  .note-preview-content::-webkit-scrollbar {
+    display: none; }
+  .note-preview-content:hover {
+    margin-right: 0; }
+  .note-preview-content::-webkit-scrollbar {
+    display: block; }
+
+.note-previw-item .cite {
+  padding: 4px 9px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  color: #555;
+  border: 1px solid rgba(74, 74, 74, 0.075); }
+.note-previw-item.selected .cite {
+  background-color: #fff;
+  border: 3px solid rgba(129, 196, 131, 0.5); }
+  .note-previw-item.selected .cite a {
+    outline: none;
+    border: none; }
+
+.note-content .content-header {
+  height: 170px;
+  line-height: 170px;
+  background-color: rgba(129, 196, 131, 0.9);
+  color: #fcfcfc;
+  text-align: center; }
+  .note-content .content-header h2 {
+    font-size: 30px;
+    color: #fff; }
+.note-content .notebook-close-button {
+  position: fixed;
+  top: 10px;
+  right: -10px;
+  width: 48px;
+  color: #fff;
+  font-size: 18px;
+  z-index: 100; }
+  .note-content .notebook-close-button:hover, .note-content .notebook-close-button.out {
+    color: #ddd; }
+  .note-content .notebook-close-button.out:hover {
+    color: #7b7b7b; }
+.note-content .content-page {
+  margin-bottom: 20px; }
+  .note-content .content-page p {
+    margin-bottom: 20px; }
+
+.note-editor {
+  width: calc(100% - 384px); }
+  .note-editor > input {
+    margin-top: 60px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 20px 10px 30px;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid rgba(129, 196, 131, 0.75);
+    font-size: 30px;
+    font-weight: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 30px;
+    box-shadow: none;
+    color: #666;
+    outline-style: none; }
+  .note-editor .note-editor-container {
+    height: 100%; }
+
+.note-editor-menu {
+  width: 100%;
+  height: 32px;
+  line-height: 30px;
+  font-size: 20px;
+  background: rgba(129, 196, 131, 0.75); }
+  .note-editor-menu .fa {
+    cursor: pointer;
+    color: #fcfcee;
+    vertical-align: middle;
+    margin-left: 15px; }
+
+.note-editor-area {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px 30px;
+  outline-style: none;
+  font-size: 1em;
+  color: #777; }
 
 /*# sourceMappingURL=note.css.map */
