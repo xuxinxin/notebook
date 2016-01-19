@@ -26,25 +26,37 @@
     <!-- javascript -->
     <script type="text/javascript" src="js/note.js"></script>
     <script type="text/javascript" src="js/note.shell.js"></script>
+    <script type="text/javascript" src="js/note.util.js"></script>
+    <script type="text/javascript" src="js/note.catalog.js"></script>
+    <script type="text/javascript" src="js/note.model.js"></script>
+    <script type="text/javascript" src="js/note.editor.js"></script>
+    <script type="text/javascript" src="js/note.preview.js"></script>
+    <script type="text/javascript" src="js/note.fake.js"></script>
+    <script type="text/javascript" src="js/note.content.js"></script>
 </head>
 <body>
     <div id="note">
-        <div class="note-catalog, note-shell-sidebar">
+        <div class="note-catalog note-shell-sidebar">
             <div class="note-catalog-head">笔记本</div>
             <div class="note-catalog-menu">
-                <i class="fa fa-plus g_pointer add-catalog"></i>
-                <i class="fa fa-trash-o deleteNotebook"></i>
+                <i class="fa fa-plus g_pointer add-catalog" title="add"></i>
+                <i class="fa fa-pencil edit-catalog" title="edit"></i>
+                <i class="fa fa-trash-o delete-catalog" title="delete"></i>
+
             </div>
             <div class="note-catalog-items">
-                <input type="text" class="new-catalogue-input"/>
-                <ul id="notebooks"></ul>
+                <input type="text" class="new-catalogue-input" placeholder="请输入标题..."/>
+                <ul id="catalog-wrap"></ul>
             </div>
         </div>
         <div class="note-shell-main">
             <div class="note-preview note-shell-middle">
                 <div class="note-preview-head">
                     <span class="title">笔记</span>
-                    <span class="g_pointer create-notebook-button"><i class="fa fa-pencil-square-o"></i>新建笔记</span>
+                    <span class="g_pointer create-notebook-button">
+                        <i class="fa fa-plus-square-o"></i>
+                        新建笔记
+                    </span>
                 </div>
                 <div class="note-preview-content">
                     <ul id="note-previw-items"></ul>
@@ -71,11 +83,16 @@
             <div class="modal-frame">
                 <div class="modal">
                     <div class="modal-inset">
-                        <div class="button modal-close modal-close-action"><i class="fa fa-close"></i></div>
+                        <div class="button modal-close modal-close-action">
+                            <i class="fa fa-close"></i>
+                        </div>
 
                         <div class="modal-body">
                             <h3 class="modal-title">Such Modal, Much Animate!</h3>
-                            <p class="modal-content">Nothing groundbreaking, but I hope you enjoyed <br /> the physics for the open/close animation =).</p>
+                            <p class="modal-content">
+                                Nothing groundbreaking, but I hope you enjoyed
+                                <br /> the physics for the open/close animation =).
+                            </p>
                             <p class="ps"></p>
                             <button class="modal-btn modal-close-action">确定</button>
                         </div>
@@ -89,11 +106,15 @@
 
 <!--template-->
 <script id="catalog-template" type="text/x-handlebars-template">
-    <li class="catalog" data-id="{{id}}"><a href="/notebook/#{{id}}">{{title}}({{numberOfNote}})</a></li>
+    <li class="catalog selected" data-id="{{id}}">
+        <a href="/notebook/#{{id}}">{{title}} (<span class="count">{{noteCount}}</span>)</a>
+    </li>
 </script>
 <script id="catalog-collection-template" type="text/x-handlebars-template">
     {{#each catalogus}}
-    <li class="catalog" data-id="{{id}}"><a href="/notebook/#{{id}}">{{title}}({{numberOfNote}})</a></li>
+    <li class="catalog" data-id="{{id}}">
+        <a href="/notebook/#{{id}}">{{title}}({{noteCount}})</a>
+    </li>
     {{/each}}
 </script>
 
@@ -122,7 +143,9 @@
 </script>
 
 <script id="notebook-display-template" type="text/x-handlebars-template">
-    <div class="menubar notebook-close-button g_pointer"> <i class="fa fa-times delete-notebook"></i></div>
+    <div class="menubar notebook-close-button g_pointer">
+        <i class="fa fa-times delete-notebook"></i>
+    </div>
     <div class="content-header">
         <h2>{{title}}</h2>
         <span></span>

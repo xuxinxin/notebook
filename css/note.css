@@ -1,4 +1,14 @@
 @import url(note.modal.css);
+@import url(../fonts/font-awesome-4.2.0/css/font-awesome.min.css);
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "codropsicons";
+  src: url("../fonts/codropsicons/codropsicons.eot");
+  src: url("../fonts/codropsicons/codropsicons.eot?#iefix") format("embedded-opentype");
+  src: url("../fonts/codropsicons/codropsicons.woff") format("woff");
+  src: url("../fonts/codropsicons/codropsicons.ttf") format("truetype");
+  src: url("../fonts/codropsicons/codropsicons.svg#codropsicons") format("svg"); }
 html {
   font: 16px "Helvetica", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
   height: 100%;
@@ -97,14 +107,19 @@ a {
   position: relative;
   left: 10%;
   display: none; }
-.note-catalog-items .note-catalog-item {
-  background-color: #303030;
-  color: #fcfcfc; }
-  .note-catalog-items .note-catalog-item a {
+.note-catalog-items .catalog {
+  padding-left: 30px;
+  height: 2em;
+  line-height: 2em;
+  transition: all 0.2s ease-in-out; }
+  .note-catalog-items .catalog a {
     display: inline-block;
     width: 100%;
     outline: none;
     border: none; }
+  .note-catalog-items .catalog.selected {
+    background-color: #303030;
+    color: #fcfcfc; }
 
 .note-preview-head {
   height: 170px;
@@ -127,7 +142,7 @@ a {
     padding: 0 20px;
     border-radius: 5px; }
     .note-preview-head .create-notebook-button i {
-      margin-left: 10px; }
+      margin-right: 10px; }
 
 .note-preview-content {
   scrollbar-arrow-color: transparent;

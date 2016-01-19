@@ -49,7 +49,12 @@ $grey: #616161
 
 
 
-  .note-catalog-item
+  .catalog
+    padding-left: 30px
+    height: 2em
+    line-height: 2em
+    transition: all .2s ease-in-out
+
     a
       display: inline-block
       width: 100%
@@ -57,4 +62,4 @@ $grey: #616161
       border: none
 
     &.selected
-    @include catalog-item-hover
+      @include catalog-item-hover

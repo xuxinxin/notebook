@@ -16,7 +16,7 @@ note.shell = (function () {
     jqueryMap = {},
     setJqueryMap, changeAnchorPart, copyAnchorMap,
     onHashChange, onLogin,  onLogout,
-    setNoteAnchor, initModule;
+    setNoteAnchor, setCatalogAnchor, initModule;
 
   // Returns copy of stored anchor map; minimizes overhead
   copyAnchorMap = function () {
@@ -36,6 +36,7 @@ note.shell = (function () {
       $content: $container.find('.note-content'),
       $editor: $container.find('.note-editor')
     };
+
   };
 
   // DOM method /changeAnchorPart/
@@ -112,7 +113,7 @@ note.shell = (function () {
   onHashChange = function (event) {
     var anchor_map_previous = copyAnchorMap(),
       is_ok = true,
-      _s_note_previous, _s_note_proposed, _note_proposed,
+      _s_note_previous, _s_note_proposed, s_note_proposed,
       anchor_map_proposed;
 
     try {
@@ -129,10 +130,19 @@ note.shell = (function () {
     _s_note_proposed = anchor_map_proposed._s_note;
 
     if (!anchor_map_previous || _s_note_previous !== _s_note_proposed) {
-      _note_proposed = anchor_map_proposed._note;
 
-      console.log("TODO(catalogId):", _note_proposed.catalogId);
-      console.log("TODO(noteId)", _note_proposed.noteId);
+      s_note_proposed = anchor_map_proposed.note;
+      switch (s_note_proposed){
+        case 'init':
+          note.catalog.setCatalogSelected(null);
+          break;
+        case 'edit':
+
+          break;
+        case 'read':
+          break;
+        default :
+      }
 
 
     }
@@ -150,7 +160,7 @@ note.shell = (function () {
     }
 
     return false;
-  }
+  };
 
   onLogin = function(){
     // TODO
@@ -191,19 +201,53 @@ note.shell = (function () {
     return changeAnchorPart(note_anchor_map);
   };
 
+  setCatalogAnchor = function (catalogId, noteCount) {
+
+    // TODO: 如果此目录的文章为空
+
+    if (catalogId == null){
+      changeAnchorPart({
+        note: 'init'
+      })
+    }else{
+      if(noteCount){
+
+      } else {
+        changeAnchorPart({
+          note: 'edit',
+          _note: {
+            catalogId: catalogId
+          }
+        })
+      }
+    }
+    console.log('set catalog anchor');
+
+  };
+
+
   initModule = function ($container) {
 
     stateMap.$container = $container;
     setJqueryMap();
 
-    $(window).bind( 'hashchange', onHashChange);
+
+
+    note.catalog.configModule({
+        setCatalogAnchor : setCatalogAnchor,
+        catalog_model: []  //note.model.catalog
+      }
+    );
+
+    note.catalog.initModule(jqueryMap.$catalog);
+
+    $(window).bind( 'hashchange', onHashChange).trigger( 'hashchange' );
 
     $.gevent.subscribe( $container, 'spa-login',  onLogin  );
     $.gevent.subscribe( $container, 'spa-logout', onLogout );
 
-
-    setNoteAnchor('12345','54321');
   };
 
   return {initModule:initModule};
+
 })();
