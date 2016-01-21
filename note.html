@@ -33,6 +33,10 @@
     <script type="text/javascript" src="js/note.preview.js"></script>
     <script type="text/javascript" src="js/note.fake.js"></script>
     <script type="text/javascript" src="js/note.content.js"></script>
+    <script type="text/javascript" src="js/note.fake.js"></script>
+    <script type="text/javascript" src="js/note.data.js"></script>
+    <script type="text/javascript" src="js/note.avatar.js"></script>
+    <script type="text/javascript" src="js/note.util_b.js"></script>
 </head>
 <body>
     <div id="note">
@@ -106,14 +110,14 @@
 
 <!--template-->
 <script id="catalog-template" type="text/x-handlebars-template">
-    <li class="catalog selected" data-id="{{id}}">
+    <li class="catalog selected" data-id="{{id}}" data-count="{{note_count}}">
         <a href="/notebook/#{{id}}">{{title}} (<span class="count">{{noteCount}}</span>)</a>
     </li>
 </script>
 <script id="catalog-collection-template" type="text/x-handlebars-template">
-    {{#each catalogus}}
-    <li class="catalog" data-id="{{id}}">
-        <a href="/notebook/#{{id}}">{{title}}({{noteCount}})</a>
+    {{#each catalogs}}
+    <li class="catalog" data-id="{{id}}" data-count="{{note_count}}">
+        <a href="/notebook/#{{id}}">{{title}}({{note_count}})</a>
     </li>
     {{/each}}
 </script>

@@ -113,7 +113,7 @@ note.shell = (function () {
   onHashChange = function (event) {
     var anchor_map_previous = copyAnchorMap(),
       is_ok = true,
-      _s_note_previous, _s_note_proposed, s_note_proposed,
+       s_note_proposed,catalog_id_proposed,
       anchor_map_proposed;
 
     try {
@@ -126,20 +126,24 @@ note.shell = (function () {
 
     stateMap.anchor_map = anchor_map_proposed;
 
-    _s_note_previous = anchor_map_previous._s_note;
-    _s_note_proposed = anchor_map_proposed._s_note;
-
-    if (!anchor_map_previous || _s_note_previous !== _s_note_proposed) {
+    if (anchor_map_previous !== anchor_map_proposed) {
 
       s_note_proposed = anchor_map_proposed.note;
+      catalog_id_proposed = anchor_map_proposed.catalogId;
       switch (s_note_proposed){
         case 'init':
-          note.catalog.setCatalogSelected(null);
+          console.log('init')
+          note.catalog.setSelected(null);
           break;
         case 'edit':
-
+          console.log('edit')
+          note.catalog.setSelected(catalog_id_proposed);
+          note.model.catalog.setSelected(catalog_id_proposed);
           break;
         case 'read':
+          console.log('read')
+          note.catalog.setSelected(catalog_id_proposed);
+          note.model.catalog.setSelected(catalog_id_proposed);
           break;
         default :
       }
@@ -211,18 +215,17 @@ note.shell = (function () {
       })
     }else{
       if(noteCount){
-
+        changeAnchorPart({
+          note: 'read',
+          catalogId: catalogId
+        })
       } else {
         changeAnchorPart({
           note: 'edit',
-          _note: {
-            catalogId: catalogId
-          }
+          catalogId: catalogId
         })
       }
     }
-    console.log('set catalog anchor');
-
   };
 
 
@@ -233,9 +236,11 @@ note.shell = (function () {
 
 
 
+    var catalogDb = note.model.catalog.getDb();
+
     note.catalog.configModule({
         setCatalogAnchor : setCatalogAnchor,
-        catalog_model: []  //note.model.catalog
+        catalog_model: catalogDb().get()  //note.model.catalog
       }
     );
 
@@ -245,6 +250,8 @@ note.shell = (function () {
 
     $.gevent.subscribe( $container, 'spa-login',  onLogin  );
     $.gevent.subscribe( $container, 'spa-logout', onLogout );
+
+
 
   };
 

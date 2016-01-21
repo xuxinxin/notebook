@@ -9,6 +9,7 @@ var note = (function(){
   'use strict';
 
   var initModule = function ( $container ) {
+    note.model.initModule();
     note.shell.initModule( $container );
   };
 

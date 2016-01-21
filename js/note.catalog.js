@@ -28,11 +28,12 @@ note.catalog = (function () {
     stateMap = {
       $container: null,
       catalog_array : [],
-      selected_catalog_id : null
+      catalog_selected : null,
+
     },
     jQueryMap = {},
     setJqueryMap, initModule, render,
-    updateJqueryMap,setCatalogSelected,
+    updateJqueryMap,setSelected,
     addCatalog, editCatalog, deleteCatalog,
     configModule, renderNewCatalog,renderCatalogArray,
     onClickAddCatalog, onClickCatalog, onDisappearNewCatalog;
@@ -138,9 +139,9 @@ note.catalog = (function () {
       $target.addClass('selected');
       $('.delete-catalog').addClass('g_pointer');
 
-      stateMap.selected_catalog_id = $target.data('id');
+      stateMap.catalog_selected = $target;
 
-      setCatalogAnchor(stateMap.selected_catalog_id);
+      setCatalogAnchor($target.data('id'),$target.data('count'));
 
     }
 
@@ -193,6 +194,7 @@ note.catalog = (function () {
 
     stateMap.catalog_array = configMap.catalog_model;
 
+
     setJqueryMap();
     render(stateMap.catalog_array);
     updateJqueryMap();
@@ -210,6 +212,10 @@ note.catalog = (function () {
 
       configMap.setCatalogAnchor(null);
 
+    } else {
+
+      configMap.setCatalogAnchor(stateMap.catalog_array[0].id,stateMap.catalog_array[0].note_count)
+
     }
 
     return true;
@@ -220,19 +226,25 @@ note.catalog = (function () {
   // Arguments:
   //   * catalogId - the id of the selected catalog
 
-  setCatalogSelected = function (catalogId) {
+  setSelected = function (catalogId) {
 
     if( catalogId == null ){
       jQueryMap.$new_catalog_input.show().focus()
     } else {
-      console.log("TODO: find catalog and select ");
+      jQueryMap.$catalog_array.removeClass('selected');
+      jQueryMap.$catalog_array.each(function (index,catalog_dom) {
+        if($(catalog_dom).data('id') === catalogId){
+          $(catalog_dom).addClass('selected');
+        }
+      });
+
     }
   };
 
   return {
     initModule: initModule,
     configModule: configModule,
-    setCatalogSelected: setCatalogSelected
+    setSelected: setSelected
   };
 
 })();
