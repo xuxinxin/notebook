@@ -144,43 +144,22 @@ a {
     .note-preview-head .create-notebook-button i {
       margin-right: 10px; }
 
-.note-preview-content {
+.note-preview-items {
   scrollbar-arrow-color: transparent;
   overflow-y: scroll;
   height: calc(100% - 190px);
   margin: 0 8px 0 6px; }
-  .note-preview-content::-webkit-scrollbar-thumb:vertical {
-    height: 5px;
-    background-color: #999999;
-    -webkit-border-radius: 6px; }
-  .note-preview-content::-webkit-scrollbar {
-    width: 8px;
-    height: 9px; }
-  .note-preview-content::-webkit-scrollbar-track-piece {
-    background-color: transparent; }
-  .note-preview-content::-webkit-scrollbar-thumb {
-    background-color: #3994EF;
-    border-radius: 3px;
-    width: 6px; }
-  .note-preview-content::-webkit-scrollbar-thumb:hover, .note-preview-content::-webkit-scrollbar-thumb {
-    background-color: #666; }
-  .note-preview-content::-webkit-scrollbar {
-    display: none; }
-  .note-preview-content:hover {
-    margin-right: 0; }
-  .note-preview-content::-webkit-scrollbar {
-    display: block; }
 
-.note-previw-item .cite {
+.preview .cite {
   padding: 4px 9px;
   margin-bottom: 6px;
   border-radius: 4px;
   color: #555;
   border: 1px solid rgba(74, 74, 74, 0.075); }
-.note-previw-item.selected .cite {
+.preview.selected .cite {
   background-color: #fff;
   border: 3px solid rgba(129, 196, 131, 0.5); }
-  .note-previw-item.selected .cite a {
+  .preview.selected .cite a {
     outline: none;
     border: none; }
 

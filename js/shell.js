@@ -3,12 +3,12 @@
  * Shell module for note SPA
  */
 
-/* global $, note, Handlebars */
+/* global $ */
 
-note.shell = (function () {
+define(['jquery','catalog_model','catalog','jquery.uriAnchor','preview','note_model'],function ($, catalog_model, catalog_module,__jqueryUrianchor, preview_module, note_model) {
 
   var configMap = {},
-    stateMap = {
+    state_map = {
       $container: null,
       is_editor: true,
       anchor_map: {}
@@ -20,13 +20,13 @@ note.shell = (function () {
 
   // Returns copy of stored anchor map; minimizes overhead
   copyAnchorMap = function () {
-    return $.extend(true, {}, stateMap.anchor_map);
+    return $.extend(true, {}, state_map.anchor_map);
   };
 
 
   // DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$container;
+    var $container = state_map.$container;
 
     jqueryMap = {
       $container: $container,
@@ -48,7 +48,7 @@ note.shell = (function () {
   //   * true  - the Anchor portion of the URI was update
   //   * false - the Anchor portion of the URI could not be updated
   // Action   :
-  //   The current anchor rep stored in stateMap.anchor_map.
+  //   The current anchor rep stored in state_map.anchor_map.
   //   See uriAnchor for a discussion of encoding.
   //   This method
   //     * Creates a copy of this map using copyAnchorMap().
@@ -88,7 +88,7 @@ note.shell = (function () {
       $.uriAnchor.setAnchor(anchor_map_revise);
     }
     catch (error) {
-      $.uriAnchor.setAnchor(stateMap.anchor_map);
+      $.uriAnchor.setAnchor(state_map.anchor_map);
       bool_return = false;
     }
 
@@ -116,6 +116,7 @@ note.shell = (function () {
        s_note_proposed,catalog_id_proposed,
       anchor_map_proposed;
 
+
     try {
       anchor_map_proposed = $.uriAnchor.makeAnchorMap();
     }
@@ -124,28 +125,53 @@ note.shell = (function () {
       return false;
     }
 
-    stateMap.anchor_map = anchor_map_proposed;
+    state_map.anchor_map = anchor_map_proposed;
 
-    if (anchor_map_previous !== anchor_map_proposed) {
+
+    // selected catalog not changed
+    if (anchor_map_previous._s_catalogId !== anchor_map_proposed._s_catalogId) {
 
       s_note_proposed = anchor_map_proposed.note;
       catalog_id_proposed = anchor_map_proposed.catalogId;
       switch (s_note_proposed){
         case 'init':
-          console.log('init')
-          note.catalog.setSelected(null);
+          catalog_module.setSelected(null);
           break;
         case 'edit':
-          console.log('edit')
-          note.catalog.setSelected(catalog_id_proposed);
-          note.model.catalog.setSelected(catalog_id_proposed);
+          catalog_module.setSelected(catalog_id_proposed);
+          catalog_model.setSelected(catalog_id_proposed);
+
+          note_model.initModule(catalog_id_proposed).then(function(data){
+            var note_db = note_model.getDb();
+
+            preview_module.configModule({
+              note_model: note_db().get(),
+              setPreviewAnchor: null
+            });
+
+            preview_module.initModule(jqueryMap.$preview);
+
+          });
           break;
         case 'read':
-          console.log('read')
-          note.catalog.setSelected(catalog_id_proposed);
-          note.model.catalog.setSelected(catalog_id_proposed);
+          //console.log('read');
+          catalog_module.setSelected(catalog_id_proposed);
+          catalog_model.setSelected(catalog_id_proposed);
+
+          note_model.initModule(catalog_id_proposed).then(function(data){
+            var note_db = note_model.getDb();
+
+            preview_module.configModule({
+              note_model: note_db().get(),
+              setPreviewAnchor: null
+            });
+
+            preview_module.initModule(jqueryMap.$preview);
+
+          });
           break;
         default :
+          break;
       }
 
 
@@ -154,7 +180,7 @@ note.shell = (function () {
     if( !is_ok){
       if(anchor_map_previous){
         $.uriAnchor.setAnchor(anchor_map_previous, null, true);
-        stateMap.anchor_map = anchor_map_previous;
+        state_map.anchor_map = anchor_map_previous;
       }else{
         delete anchor_map_proposed.note;
         delete anchor_map_proposed._note;
@@ -207,11 +233,11 @@ note.shell = (function () {
 
   setCatalogAnchor = function (catalogId, noteCount) {
 
-    // TODO: 如果此目录的文章为空
 
     if (catalogId == null){
       changeAnchorPart({
-        note: 'init'
+        note: 'init',
+        catalogId: null
       })
     }else{
       if(noteCount){
@@ -231,25 +257,27 @@ note.shell = (function () {
 
   initModule = function ($container) {
 
-    stateMap.$container = $container;
+    state_map.$container = $container;
     setJqueryMap();
 
 
 
-    var catalogDb = note.model.catalog.getDb();
+    var catalog_db = catalog_model.getDb();
 
-    note.catalog.configModule({
+    catalog_module.configModule({
         setCatalogAnchor : setCatalogAnchor,
-        catalog_model: catalogDb().get()  //note.model.catalog
+        catalog_model: catalog_db().get()  //note.model.catalog
       }
     );
 
-    note.catalog.initModule(jqueryMap.$catalog);
+    catalog_module.initModule(jqueryMap.$catalog);
+
+
 
     $(window).bind( 'hashchange', onHashChange).trigger( 'hashchange' );
 
-    $.gevent.subscribe( $container, 'spa-login',  onLogin  );
-    $.gevent.subscribe( $container, 'spa-logout', onLogout );
+    //$.gevent.subscribe( $container, 'spa-login',  onLogin  );
+    //$.gevent.subscribe( $container, 'spa-logout', onLogout );
 
 
 
@@ -257,4 +285,4 @@ note.shell = (function () {
 
   return {initModule:initModule};
 
-})();
+});
